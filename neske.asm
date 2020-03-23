@@ -72,7 +72,7 @@ Nmi:
   lda #$00
   sta $2003
   lda #$02
-  sta 4014
+  sta $4014
 
   rti
 
@@ -87,7 +87,7 @@ Sprite:
   .byte $80, $00, $00, $80
 
   .org $FFFA
-  .dw Nmi, Reset, 0
+  .word Nmi, Reset, 0
 
   .bank 2
   .org $0000
