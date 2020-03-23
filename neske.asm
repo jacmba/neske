@@ -26,6 +26,8 @@ Clearmem:
   tax
   tay
 
+  jsr Initialize ;Initialize player object
+
 VBlankWait1:
   bit $2002
   bpl VBlankWait1
@@ -45,7 +47,7 @@ PaletteSetup:
   lda $2002
   lda #$3F
   sta $2006
-  lda #$00
+  lda #$10
   sta $2006
 
   ldx #$00
@@ -76,13 +78,13 @@ Nmi:
 
   rti
 
+  .include "model/snake.asm"
+
   .bank 1
   .org $E000
 PaletteData:
-  ;.incbin "res/sprites_pal.dat"
-  .byte $0F,$1A,$06,$20,$34,$35,$36,$37,$38,$39,$3A,$3B,$3C,$3D,$3E,$3F
-  .byte $0F,$1A,$06,$20,$34,$35,$36,$37,$38,$39,$3A,$3B,$3C,$3D,$3E,$3F
-
+  .incbin "res/sprites_pal.dat"
+  
 Sprite:
   .byte $80, $00, $00, $80
 

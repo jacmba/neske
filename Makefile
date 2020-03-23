@@ -2,7 +2,7 @@
 
 all: neske.nes
 
-neske.nes: *.asm
+neske.nes: *.asm **/*.asm res/*.*
 	nesasm neske.asm
 
 clean:
