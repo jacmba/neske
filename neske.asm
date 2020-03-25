@@ -47,7 +47,7 @@ PaletteSetup:
   lda $2002
   lda #$3F
   sta $2006
-  lda #$10
+  lda #$00
   sta $2006
 
   ldx #$00
@@ -76,14 +76,22 @@ Nmi:
   lda #$02
   sta $4014
 
+  ;Render graphics
+  jsr RenderSnake
+
+  ;Update objects
+  jsr MoveSnake
+
   rti
 
-  .include "model/snake.asm"
+  .include "model/snake_impl.asm"
+  .include "view/snake_render.asm"
 
   .bank 1
   .org $E000
 PaletteData:
-  .incbin "res/sprites_pal.dat"
+  .incbin "res/sprites.pal"
+  .incbin "res/sprites.pal"
   
 Sprite:
   .byte $80, $00, $00, $80
@@ -94,3 +102,5 @@ Sprite:
   .bank 2
   .org $0000
   .incbin "res/sprites.chr"
+
+  .include "model/snake.asm"
