@@ -42,5 +42,5 @@ MoveDown:
   lda PosY
   clc
   adc Speed
-  sta PosX
+  sta PosY
   rts

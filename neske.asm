@@ -79,6 +79,9 @@ Nmi:
   ;Render graphics
   jsr RenderSnake
 
+  ;Process controller input
+  jsr ReadController
+
   ;Update objects
   jsr MoveSnake
 
@@ -86,6 +89,7 @@ Nmi:
 
   .include "model/snake_impl.asm"
   .include "view/snake_render.asm"
+  .include "controller/input.asm"
 
   .bank 1
   .org $E000
