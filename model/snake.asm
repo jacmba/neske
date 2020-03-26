@@ -1,10 +1,16 @@
-PosX:
+;=====================================================================
+; snake.asm
+;
+; Data model for snake object
+;=====================================================================
+
+PosX: ;Horizontal position
   .byte $80
-PosY:
+PosY: ;Vertical position
   .byte $80
-Size:
+Size: ;Current snake's tail size
   .byte $00
-Direction:
+Direction: ;Movement direction [1-4]: Right, Up, Left, Down
   .byte $01
-Speed:
+Speed: ;Movement speed in pixel units
   .byte $01

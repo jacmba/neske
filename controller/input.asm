@@ -1,3 +1,15 @@
+;===================================================================
+; input.asm
+;
+; Routines to handle controller input
+;===================================================================
+
+;-------------------------------------------------------------------
+; Read controller input
+
+; Directional input (up, down, left, right) changes snake direction
+; Check is performed to avoid direct turn into opposite direction
+;-------------------------------------------------------------------
 ReadController:
   lda #$01
   sta $4016
