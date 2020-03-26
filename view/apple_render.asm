@@ -10,6 +10,6 @@
 RenderApple:
   ldx AppleX
   ldy AppleY
-  stx $2007
-  sty $2004
+  stx $0207
+  sty $0204
   rts

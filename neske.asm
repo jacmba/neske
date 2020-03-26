@@ -118,6 +118,9 @@ Nmi:
   ;Process controller input
   jsr ReadController
 
+  ;Check collisions
+  jsr CheckCollisions
+
   ;Update objects
   jsr MoveSnake
 
