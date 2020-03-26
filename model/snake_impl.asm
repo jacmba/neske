@@ -4,6 +4,11 @@
 ; Snake object routines implementation
 ;===========================================================
 
+;Define util constants
+COLLIDE_X    .byte %00000001
+COLLIDE_Y    .byte %00000010
+COLLISION_OK .byte %00000011
+
 ;-----------------------------------------------------------
 ; Set initial values
 ; Head sprite at center of screen
@@ -58,4 +63,21 @@ MoveDown:
   clc
   adc Speed
   sta PosY
+  rts
+
+;-----------------------------------------------------------
+; Check collisions with Apple
+;-----------------------------------------------------------
+CheckCollisions:
+  ldx #$00
+  stx CollisionMask ;Reset collision mask
+
+  ldx PosX
+  ldy PosY
+
+  ;Check horizontal boundaries
+  
+  bpl ChkColXDone
+  ora COLLIDE_X
+ChkColXDone:
   rts
