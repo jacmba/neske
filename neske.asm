@@ -84,12 +84,12 @@ LoadPaletteLoop:
   bne LoadPaletteLoop
 
   ldx #$00
-LoadSpriteLoop:
-  lda Sprite,x
+LoadSpritesLoop:
+  lda Sprites,x
   sta $0200,x
   inx
-  cpx #$04
-  bne LoadSpriteLoop
+  cpx #$08
+  bne LoadSpritesLoop
 
 ;-------------------------------------------------------
 ; Infinite loop to prevent main code falling
@@ -138,8 +138,9 @@ Nmi:
 PaletteData: ;Load binary palette data
   .incbin "res/sprites.pal"
   
-Sprite: ;Snake head sprite (tile 0 at 0x80, 0x80)
-  .byte $80, $00, $00, $80
+Sprites: ;Sprites data
+  .byte $80, $00, $00, $80 ;Snake head sprite (tile 0 at 0x80, 0x80)
+  .byte $20, $02, $01, $E0 ;Apple sprite (tile 2 at 0x20, 0xE0)
 
   ;Vector table definition
   .org $FFFA
