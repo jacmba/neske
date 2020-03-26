@@ -17,9 +17,9 @@ Speed: ;Movement speed in pixel units
 
 CollisionMask:  ;Bit mask to detect collilsions with apple:
                 ;7 6 5 4 3 2 1 0
-                ;| | | | | | | +-- Right boundary
-                ;| | | | | | +---- Upper boundary
-                ;| | | | | +------ Left boundary
-                ;| | | | +-------- Lower boundary
-                ;+ + + +---------- Unused
+                ;| | | | | | | +-- Horizontal boundaries
+                ;| | | | | | +---- Vertical boundaries
+                ;+-+-+-+-+-+------ Unused
+                ;
+                ;Collision happened when value es %00000011
   .byte %00000000
