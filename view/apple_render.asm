@@ -1,15 +1,15 @@
 ;===========================================================
-; snake_render.asm
+; apple_render.asm
 ;
-; Routines to display snake object in screen
+; Routines to display apple in screen
 ;===========================================================
 
 ;-----------------------------------------------------------
-; Render snake at PosX,PosY
+; Render apple sprite at AppleX,AppleY position
 ;-----------------------------------------------------------
-RenderSnake:
-  ldx PosX
-  ldY PosY
-  stx $0203
-  sty $0200
+RenderApple:
+  ldx AppleX
+  ldy AppleY
+  stx $2007
+  sty $2004
   rts
