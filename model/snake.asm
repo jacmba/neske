@@ -4,8 +4,8 @@
 ; Data model for snake object
 ;===========================================================
 
-PosX: ;Horizontal position
-  .byte $80
+PosX ;Horizontal position
+  .byte 01
 PosY: ;Vertical position
   .byte $80
 Size: ;Current snake's tail size
@@ -23,3 +23,22 @@ CollisionMask:  ;Bit mask to detect collilsions with apple:
                 ;
                 ;Collision happened when value es %00000011
   .byte %00000000
+
+Tail:
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  .byte 0, 0, 0, 0, 0, 0, 0, 0
+  
