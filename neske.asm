@@ -138,10 +138,10 @@ Nmi:
 
 ;-
 ; Second memory bank
-; Include some graphic data here and define vector table
+; Include data here and define vector table
 ;-
   .bank 1
-  .org $E000
+  .org $E000 ;Data RAM
 PaletteData: ;Load binary palette data
   .incbin "res/sprites.pal"
   

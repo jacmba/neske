@@ -115,6 +115,69 @@ ChkColYDone:
   cmp COLLISION_OK
   bne CheckCollisionDone
   jsr RespawnApple
+  jsr IncreaseTail
 
 CheckCollisionDone:
   rts
+
+;-----------------------------------------------------------
+; Increase tail size
+;-----------------------------------------------------------
+IncreaseTail:
+  ldx Size
+  cpx #$00
+  beq IncreaseTailFromHead
+IncreaseTailFromHead:
+  ldx PosX
+  ldy PosY
+  lda Direction
+  jmp IncreaseSet
+IncreaseSet:
+  cmp #$01
+  beq IncreaseTailLeft
+  cmp #$02
+  beq IncreaseTailDown
+  cmp #$03
+  beq IncreaseTailRight
+  tya
+  sec
+  sbc #$08
+  jmp IncreaseStore
+IncreaseTailLeft:
+  txa
+  sec
+  sbc #$08
+  jmp IncreaseStore
+IncreaseTailDown:
+  tya
+  clc
+  adc #$08
+  jmp IncreaseStore
+IncreaseTailRight:
+  txa
+  clc
+  adc #$08
+IncreaseStore:
+  rts
+  pha
+  txa
+  pha
+  lda Size
+  clc
+  ;asl a
+  ;asl a
+  tax
+  pla
+  sta Tail,x
+  inx
+  tya
+  sta Tail,x
+  pla
+  sta Tail,x
+  ldx Size
+  inx
+  ldx #$FF
+  stx Tail
+  
+  rts
+
