@@ -12,4 +12,13 @@ RenderSnake:
   ldY PosY
   stx $0203
   sty $0200
+  lda #$00
+RenderTailLoop:
+  cmp Size
+  beq RenderTailDone
+  pha
+  rol
+  rol ;multiply by 4
+  ; ToDo continue copying position data
+RenderTailDone:
   rts

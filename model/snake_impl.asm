@@ -30,6 +30,8 @@ Initialize:
 ; Perform snake movement as per current direction
 ;-----------------------------------------------------------
 MoveSnake:
+  ;Start moving tail
+
   ldx Direction
   cpx #$01
   beq MoveRight
@@ -127,12 +129,14 @@ IncreaseTail:
   ldx Size
   cpx #$00
   beq IncreaseTailFromHead
+  rts
 IncreaseTailFromHead:
   ldx PosX
   ldy PosY
   lda Direction
   jmp IncreaseSet
 IncreaseSet:
+  pha ;Backup Accumulator into stack
   cmp #$01
   beq IncreaseTailLeft
   cmp #$02
@@ -147,37 +151,31 @@ IncreaseTailLeft:
   txa
   sec
   sbc #$08
+  tax
   jmp IncreaseStore
 IncreaseTailDown:
   tya
   clc
   adc #$08
+  tay
   jmp IncreaseStore
 IncreaseTailRight:
   txa
   clc
   adc #$08
-IncreaseStore:
-  rts
-  pha
-  txa
-  pha
-  lda Size
-  clc
-  ;asl a
-  ;asl a
   tax
-  pla
-  sta Tail,x
+IncreaseStore:
+  txa
+  ldx #$00
+  sta Tail
   inx
   tya
   sta Tail,x
+  inx
   pla
   sta Tail,x
   ldx Size
   inx
-  ldx #$FF
-  stx Tail
-  
+  stx Size
   rts
 
