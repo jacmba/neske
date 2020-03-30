@@ -161,7 +161,7 @@ Sprites: ;Sprites data
   .bank 2
   .org $0000
   .incbin "res/sprites.chr"
-
+  
   ;Import data definitions
   .include "model/snake.asm"
   .include "model/apple.asm"

@@ -17,8 +17,8 @@ RenderTailLoop:
   cmp Size
   beq RenderTailDone
   pha
-  rol
-  rol ;multiply by 4
+  rol a
+  rol a ;multiply by 4
   ; ToDo continue copying position data
 RenderTailDone:
   rts

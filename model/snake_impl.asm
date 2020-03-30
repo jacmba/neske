@@ -178,4 +178,3 @@ IncreaseStore:
   inx
   stx Size
   rts
-
