@@ -27,7 +27,6 @@ Initialize:
 ;-----------------------------------------------------------
 MoveSnake:
   ;Start moving tail
-
   lda #$00
   ldx #$00
 MoveTailLoop:
@@ -36,6 +35,7 @@ MoveTailLoop:
   pha
   cmp #$00
   beq MoveFirstTailBlock
+  ;rts ;ToDo move rest of tail
 MoveFirstTailBlock:
   lda PosX;
   sta Tail,x
@@ -49,9 +49,8 @@ MoveFirstTailBlock:
   txa
   inx
   tax
-  ;jmp MoveFirstTailBlock
+  ;jmp MoveTailLoop
 MoveSnakeHead:
-
   ldx Direction
   cpx #$01
   beq MoveRight
@@ -116,10 +115,37 @@ IncreaseTail:
   ldx Size
   cpx #$00
   beq IncreaseTailFromHead
-  rts
+  lda #$00
+  ldx #$01
+FindTailTipLoop:
+  cpx Size
+  beq TailTipFound
+  clc
+  adc #$03
+  inx
+  jmp FindTailTipLoop
+TailTipFound:
+  tax
+  clc
+  adc #$03
+  pha
+  lda Tail,x
+  pha
+  inx
+  lda Tail,x
+  tay
+  inx
+  lda Tail,x
+  sta Temp
+  pla
+  tax
+  lda Temp
+  jmp IncreaseSet
 IncreaseTailFromHead:
   ldx PosX
   ldy PosY
+  lda #$00
+  pha
   lda Direction
   jmp IncreaseSet
 IncreaseSet:
@@ -152,9 +178,11 @@ IncreaseTailRight:
   adc #$08
   tax
 IncreaseStore:
+  pla
+  sta Temp
   txa
-  ldx #$00
-  sta Tail
+  ldx Temp
+  sta Tail,x
   inx
   tya
   sta Tail,x
