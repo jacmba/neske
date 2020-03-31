@@ -111,24 +111,15 @@ Nmi:
   lda #$02
   sta $4014
 
-  ;Render graphics
-  jsr RenderSnake
-  jsr RenderApple
-
-  ;Process controller input
-  jsr ReadController
-
-  ;Check collisions
-  jsr CheckCollisions
-
-  ;Update objects
-  jsr MoveSnake
+  ;Process game logic
+  jsr GameLoop
 
   rti
 
 ;-
 ; Import code
 ;-
+  .include "model/game_impl.asm"
   .include "model/snake_impl.asm"
   .include "model/apple_impl.asm"
   .include "view/screen.asm"
@@ -141,7 +132,7 @@ Nmi:
 ; Include data here and define vector table
 ;-
   .bank 1
-  .org $E000 ;Data RAM
+  .org $E000
 PaletteData: ;Load binary palette data
   .incbin "res/sprites.pal"
   
@@ -163,5 +154,6 @@ Sprites: ;Sprites data
   .incbin "res/sprites.chr"
   
   ;Import data definitions
+  .include "model/game.asm"
   .include "model/snake.asm"
   .include "model/apple.asm"

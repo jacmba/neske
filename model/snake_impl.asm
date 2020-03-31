@@ -4,11 +4,6 @@
 ; Snake object routines implementation
 ;===========================================================
 
-;Define util constants
-COLLIDE_X    .byte %00000001
-COLLIDE_Y    .byte %00000010
-COLLISION_OK .byte %00000011
-
 ;-----------------------------------------------------------
 ; Set initial values
 ; Head sprite at center of screen
@@ -23,6 +18,7 @@ Initialize:
   sta Size
   lda #$01
   sta Direction
+  lda #$08
   sta Speed
   rts
 
@@ -35,7 +31,6 @@ MoveSnake:
   lda #$00
   ldx #$00
 MoveTailLoop:
-  jmp MoveSnakeHead ;Remove this!!
   cmp Size
   beq MoveSnakeHead
   pha
@@ -96,55 +91,22 @@ MoveDown:
 ; Check collisions with Apple
 ;-----------------------------------------------------------
 CheckCollisions:
-  ldx #$00
-  stx CollisionMask ;Reset collision mask
-
-  ;Check horizontal boundaries
+  ;Check horizontal match
   lda PosX
   cmp AppleX
-  bmi ChkXHigher
-  sec
-  sbc AppleX
-  jmp ChkXDelta
-ChkXHigher: ;Check X boundary if apple position is higher
-  lda AppleX
-  sec
-  sbc PosX
-ChkXDelta: ;Check difference of X coordinates  
-  cmp #07
-  bpl ChkColXDone
-  lda CollisionMask
-  ora COLLIDE_X
-  sta CollisionMask
-ChkColXDone:
-
-  ;Check vertical boundaries
+  bne CheckCollisionDone
+  
+  ;Check vertical match
   lda PosY
   cmp AppleY
-  bmi ChkYHigher
-  sec
-  sbc AppleY
-  jmp ChkYDelta
-ChkYHigher: ;Check Y boundary if apple position is higher
-  lda AppleY
-  sec
-  sbc PosY
-ChkYDelta:
-  cmp #07
-  bpl ChkColYDone
-  lda CollisionMask
-  ora COLLIDE_Y
-  sta CollisionMask
-ChkColYDone:
-
-  ;Test collision mask
-  lda CollisionMask
-  cmp COLLISION_OK
   bne CheckCollisionDone
-  jsr RespawnApple
-  jsr IncreaseTail
 
-CheckCollisionDone:
+  ;If we get here,
+  ;there's x and y match
+  jsr IncreaseTail
+  jsr RespawnApple
+
+CheckCollisionDone: ;Jump here when no position match
   rts
 
 ;-----------------------------------------------------------
