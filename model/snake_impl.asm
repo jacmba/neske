@@ -126,9 +126,9 @@ FindTailTipLoop:
   jmp FindTailTipLoop
 TailTipFound:
   tax
-  clc
-  adc #$03
   pha
+  sec
+  adc #$03
   lda Tail,x
   pha
   inx
