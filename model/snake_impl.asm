@@ -32,6 +32,31 @@ Initialize:
 MoveSnake:
   ;Start moving tail
 
+  lda #$00
+  ldx #$00
+MoveTailLoop:
+  jmp MoveSnakeHead ;Remove this!!
+  cmp Size
+  beq MoveSnakeHead
+  pha
+  cmp #$00
+  beq MoveFirstTailBlock
+MoveFirstTailBlock:
+  lda PosX;
+  sta Tail,x
+  inx
+  lda PosY
+  sta Tail,x
+  inx
+  lda Direction
+  sta Tail,x
+  pla
+  txa
+  inx
+  tax
+  ;jmp MoveFirstTailBlock
+MoveSnakeHead:
+
   ldx Direction
   cpx #$01
   beq MoveRight
