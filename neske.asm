@@ -55,6 +55,13 @@ Clearmem:
   inx
   bne Clearmem
 
+  ldx #$00
+  lda #$FF
+ClearVmem: ;Cleanup sprite RAM
+  sta $0200,x
+  inx
+  bne ClearVmem
+
   jsr Initialize ;Initialize player object
   jsr InitApple ;Initialize apple object
 

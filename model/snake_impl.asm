@@ -35,7 +35,7 @@ MoveTailLoop:
   pha
   cmp #$00
   beq MoveFirstTailBlock
-  ;rts ;ToDo move rest of tail
+  jmp MoveSnakeHead
 MoveFirstTailBlock:
   lda PosX;
   sta Tail,x
@@ -126,9 +126,9 @@ FindTailTipLoop:
   jmp FindTailTipLoop
 TailTipFound:
   tax
-  pha
-  sec
+  clc
   adc #$03
+  sta Temp
   lda Tail,x
   pha
   inx
@@ -136,20 +136,19 @@ TailTipFound:
   tay
   inx
   lda Tail,x
-  sta Temp
+  sta Temp2
   pla
   tax
-  lda Temp
+  lda Temp2  
   jmp IncreaseSet
 IncreaseTailFromHead:
   ldx PosX
   ldy PosY
   lda #$00
-  pha
+  sta Temp
   lda Direction
   jmp IncreaseSet
 IncreaseSet:
-  pha ;Backup Accumulator into stack
   cmp #$01
   beq IncreaseTailLeft
   cmp #$02
@@ -178,8 +177,7 @@ IncreaseTailRight:
   adc #$08
   tax
 IncreaseStore:
-  pla
-  sta Temp
+  pha
   txa
   ldx Temp
   sta Tail,x
@@ -189,7 +187,5 @@ IncreaseStore:
   inx
   pla
   sta Tail,x
-  ldx Size
-  inx
-  stx Size
+  inc Size
   rts
