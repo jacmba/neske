@@ -28,15 +28,40 @@ Initialize:
 MoveSnake:
   ;Start moving tail
   lda #$00
-  ldx #$00
 MoveTailLoop:
   cmp Size
   beq MoveSnakeHead
   pha
   cmp #$00
   beq MoveFirstTailBlock
-  jmp MoveSnakeHead
+  pha
+  jsr FindTailTip
+  tax ;Start copying data from previous tail part
+  lda Tail,x
+  inx
+  inx
+  inx
+  sta Tail,x ;Copy X-coord
+  dex
+  dex
+  lda Tail,x
+  inx
+  inx
+  inx
+  sta Tail,x ;Copy y-coord
+  dex
+  dex
+  lda Tail,x
+  inx
+  inx
+  inx
+  sta Tail,x
+  pla
+  clc
+  adc #01
+  jmp MoveTailLoop
 MoveFirstTailBlock:
+  ldx #$00
   lda PosX;
   sta Tail,x
   inx
@@ -49,7 +74,6 @@ MoveFirstTailBlock:
   txa
   inx
   tax
-  ;jmp MoveTailLoop
 MoveSnakeHead:
   ldx Direction
   cpx #$01
@@ -117,14 +141,7 @@ IncreaseTail:
   beq IncreaseTailFromHead
   lda #$00
   ldx #$01
-FindTailTipLoop:
-  cpx Size
-  beq TailTipFound
-  clc
-  adc #$03
-  inx
-  jmp FindTailTipLoop
-TailTipFound:
+  jsr FindTailTip
   tax
   clc
   adc #$03
@@ -190,4 +207,18 @@ IncreaseStore:
   lda Temp2
   sta Tail,x
   inc Size
+  rts
+
+;-----------------------------------------------------------
+; Find last tail part
+; Return ZP position in Accumulator
+;-----------------------------------------------------------
+FindTailTip:
+  cpx Size
+  beq TailTipFound
+  clc
+  adc #$03
+  inx
+  jmp FindTailTip
+TailTipFound:
   rts
