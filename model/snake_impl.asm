@@ -155,10 +155,7 @@ IncreaseSet:
   beq IncreaseTailDown
   cmp #$03
   beq IncreaseTailRight
-  tya
-  sec
-  sbc #$08
-  jmp IncreaseStore
+  jmp IncreaseTailUp
 IncreaseTailLeft:
   txa
   sec
@@ -171,13 +168,18 @@ IncreaseTailDown:
   adc #$08
   tay
   jmp IncreaseStore
+IncreaseTailUp:
+  tya
+  sec
+  sbc #$08
+  tay
+  jmp IncreaseStore
 IncreaseTailRight:
   txa
   clc
   adc #$08
   tax
 IncreaseStore:
-  pha
   txa
   ldx Temp
   sta Tail,x
@@ -185,7 +187,7 @@ IncreaseStore:
   tya
   sta Tail,x
   inx
-  pla
+  lda Temp2
   sta Tail,x
   inc Size
   rts
