@@ -35,8 +35,13 @@ MoveTailLoop:
   cmp #$00
   beq MoveFirstTailBlock
   pha
+  lda #$00
+  ldx #$01
   jsr FindTailTip
   tax ;Start copying data from previous tail part
+  dex
+  dex
+  dex
   lda Tail,x
   inx
   inx

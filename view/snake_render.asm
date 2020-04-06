@@ -23,6 +23,7 @@ RenderTailLoop:
   pha 
   inx
   lda Tail,x ;Load y coordinate
+  inx
   sta $0208,y
   iny
   lda #$01 ;Set tail sprite
@@ -35,11 +36,8 @@ RenderTailLoop:
   sta $0208,y
   iny
   pla
-  stx Temp
-  tax
-  inx
-  txa
-  ldx Temp
+  clc
+  adc #$01
   jmp RenderTailLoop
 RenderTailDone:
   rts
