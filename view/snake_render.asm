@@ -24,6 +24,7 @@ RenderTailLoop:
   inx
   lda Tail,x ;Load y coordinate
   inx
+  inx
   sta $0208,y
   iny
   lda #$01 ;Set tail sprite
