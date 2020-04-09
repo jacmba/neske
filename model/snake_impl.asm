@@ -28,20 +28,18 @@ Initialize:
 MoveSnake:
   ;Start moving tail
   lda #$00
-MoveTailLoop:
-  cmp Size
-  beq MoveSnakeHead
-  pha
-  cmp #$00
-  beq MoveFirstTailBlock
-  pha
-  lda #$00
   ldx #$01
   jsr FindTailTip
-  tax ;Start copying data from previous tail part
-  dex
-  dex
-  dex
+  sec
+  sbc #$03
+  tax
+  lda Size
+MoveTailLoop:
+  cmp #$00
+  beq MoveSnakeHead
+  cmp #$01
+  beq MoveFirstTailBlock
+  pha
   lda Tail,x
   inx
   inx
@@ -60,10 +58,14 @@ MoveTailLoop:
   inx
   inx
   inx
-  sta Tail,x
+  sta Tail,x ;Copy direction
+  txa
+  sec
+  sbc #$08
+  tax
   pla
-  clc
-  adc #01
+  sec
+  sbc #01
   jmp MoveTailLoop
 MoveFirstTailBlock:
   ldx #$00
@@ -75,7 +77,6 @@ MoveFirstTailBlock:
   inx
   lda Direction
   sta Tail,x
-  pla
   txa
   inx
   tax
