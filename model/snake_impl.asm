@@ -134,6 +134,7 @@ CheckCollisions:
   ;there's x and y match
   jsr IncreaseTail
   jsr RespawnApple
+  jsr IncreaseScore
 
 CheckCollisionDone: ;Jump here when no position match
   rts

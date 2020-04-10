@@ -11,6 +11,7 @@ GameLoop:
   ;Render graphics
   jsr RenderSnake
   jsr RenderApple
+  jsr RenderScore
 
   ;Process controller input
   jsr ReadController
@@ -29,4 +30,18 @@ GameUpdate: ;Update game objects
   stx GameCounter ;Reset speed control counter
   jsr MoveSnake
 
+  rts
+
+;-----------------------------------------------------------
+; Increase game score
+;-----------------------------------------------------------
+IncreaseScore:
+  ldx ScoreUnits
+  inx
+  cpx $0A
+  bne IncreaseScoreDone
+  ldx #$00
+  inc ScoreTens
+IncreaseScoreDone:
+  stx ScoreUnits
   rts
