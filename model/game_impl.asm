@@ -38,7 +38,7 @@ GameUpdate: ;Update game objects
 IncreaseScore:
   ldx ScoreUnits
   inx
-  cpx $0A
+  cpx #$0A
   bne IncreaseScoreDone
   ldx #$00
   inc ScoreTens
